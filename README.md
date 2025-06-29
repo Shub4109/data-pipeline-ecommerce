@@ -1,6 +1,6 @@
 ﻿# 📦 data-pipeline-ecommerce
 
-> **Author:** Shubham Nagula (maddy@example.com)  
+> **Author:** Shubham Nagula (shubham07nagula.com)  
 > **Repo:** [data-pipeline-ecommerce](https://github.com/Shub4109/data-pipeline-ecommerce)  
 > **Stack:** Python, Airflow, MySQL, Docker, Metabase, Pandas
 
