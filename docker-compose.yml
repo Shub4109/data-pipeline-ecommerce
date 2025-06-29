@@ -1,0 +1,39 @@
+﻿version: "3.9"
+
+services:
+
+  airflow:
+    image: apache/airflow:2.9.1
+    container_name: airflow
+    restart: always
+    command: bash -c "airflow db migrate && airflow webserver"
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: mysql+mysqlconnector://root:Maddy%404109@host.docker.internal:3306/airflow_db
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'True'
+      AIRFLOW__WEBSERVER__RBAC: 'True'
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
+      - ./data_sample:/opt/airflow/data_sample
+
+  airflow-scheduler:
+    image: apache/airflow:2.9.1
+    container_name: airflow-scheduler
+    restart: always
+    command: scheduler
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: mysql+mysqlconnector://root:Maddy%404109@host.docker.internal:3306/airflow_db
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
+      - ./data_sample:/opt/airflow/data_sample
+
+  metabase:
+    image: metabase/metabase
+    container_name: metabase
+    ports:
+      - "3000:3000"
